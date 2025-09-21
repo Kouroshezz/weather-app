@@ -2,20 +2,11 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { createContext, useState, useEffect, type ReactNode } from 'react';
 
 export type ChangeThemeType = {
-  changeTheme: () => void;
+  changeTheme: (theme: 'light' | 'dark') => void;
   theme: 'light' | 'dark';
   username: string;
   setUsername: (name: string) => void;
 };
-
-
-
-export const ThemeContext = createContext<ChangeThemeType>({
-  theme: 'light',
-  changeTheme: () => { },
-  username: '',
-  setUsername: () => { },
-});
 
 const darkTheme = createTheme({
   palette: {
@@ -28,11 +19,13 @@ const darkTheme = createTheme({
       main: '#2196F3',
     },
     text: {
-      primary: '#FFFFFF',
+      primary: '#F3F4F7',
       secondary: '#B0B0B0',
     },
     app: {
-      box: '#404961'
+      weatherBox: '#404961',
+      box: '#292F45',
+      text: '#F3F4F7'
     }
   },
 });
@@ -45,13 +38,22 @@ const lightTheme = createTheme({
       paper: '#FFFFFF',
     },
     text: {
-      primary: '#03464',
+      primary: '#003464',
       secondary: '#050F24',
     },
     app: {
-      box: '#CDD9E0'
+      weatherBox: '#CDD9E0',
+      box: '#E1E9EE',
+      text: '#003464'
     },
   },
+});
+
+export const ThemeContext = createContext<ChangeThemeType>({
+  theme: 'light',
+  changeTheme: () => { },
+  username: '',
+  setUsername: () => { },
 });
 
 export function ThemeContextProvider({ children }: { children: ReactNode }) {
@@ -76,12 +78,10 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('username', username);
   }, [username]);
 
-  const changeTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('appTheme', newTheme);
-      return newTheme;
-    });
+  const changeTheme = (theme: 'light' | 'dark') => {
+    localStorage.setItem('appTheme', theme);
+    setTheme(theme)
+
   };
 
   return (

@@ -2,5 +2,7 @@
   "login": "login",
   "enter_name": "Enter Your Name",
   "lougout": "Logout",
-  "langugage": "Langugage"
+  "langugage": "Langugage",
+  "past24": "Past 24 Hour Weather",
+  "cityname": "Enter a City"
 }

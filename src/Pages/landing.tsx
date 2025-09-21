@@ -1,4 +1,4 @@
-import { Box, Button, Container, FormControl, Grid, InputLabel, NativeSelect, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import sunny from '../assets/Sun cloud angled rain.png';
 import windy from '../assets/Moon cloud fast wind.png';
 import rainy from '../assets/Moon cloud mid rain.png';
@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import ChangeLang from '../components/changeLang';
 
 
 const images = [
@@ -17,17 +16,12 @@ const images = [
 
 function LandingPage() {
 
-
   const { t } = useTranslation();
 
   const { theme, username, setUsername } = useContext(ThemeContext);
   const [getname, setGetname] = useState<string>('');
   let navigate = useNavigate();
 
-
-  const typeDebounce = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    setGetname(e?.target?.value);
-  }
 
   const Login = () => {
     setUsername(getname);
@@ -37,7 +31,6 @@ function LandingPage() {
   useEffect(() => {
     username !== '' && navigate('/dashboard')
   }, [username])
-
 
 
 
@@ -94,10 +87,6 @@ function LandingPage() {
             </Box>
           </Grid>
         </Grid >
-        {/* --- change language  */}
-        <Box sx={{ textAlign: 'center' }}>
-          <ChangeLang />
-        </Box>
       </Box >
     </>
   )

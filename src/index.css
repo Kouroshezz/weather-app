@@ -1,9 +1,12 @@
 :root {
-  --bg-main: #F3FAFE;
+  /* font-size: 10px; */
+  font-family: 'roboto';
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .img-responsive {
@@ -13,4 +16,8 @@
 
 .login-img img {
   transform: scale(1.5);
+}
+
+.dashboard-header {
+  box-shadow: 0px 4px 10px 0px #00000026;
 }

@@ -2,5 +2,7 @@
   "login": "ورود",
   "enter_name": "نام خود را وارد کنید",
   "logout": "خروج",
-  "langugage": "زبان"
+  "langugage": "زبان",
+  "past24": "هوای 24 ساعت گذشته",
+  "cityname": "نام شهر"
 }
