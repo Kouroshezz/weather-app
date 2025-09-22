@@ -1,8 +1,27 @@
 {
   "login": "login",
   "enter_name": "Enter Your Name",
-  "lougout": "Logout",
-  "langugage": "Langugage",
+  "logout": "Logout",
+  "language": "Language",
   "past24": "Past 24 Hour Weather",
-  "cityname": "Enter a City"
+  "average": "Average Monthly Temprature",
+  "cityname": "Enter a City",
+  "exit": "Exit",
+  "dashboard": "Weather Dashboard",
+  "mode": "Mode",
+  "light": "Light",
+  "dark": "Dark",
+  "load_cities": "Loading cities...",
+  "week": {
+    "Saturday": "Saturday",
+    "Sunday": "Sunday",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday"
+  },
+  "copy_right": "All rights of this site are reserved for Nadin Sadr Aria Engineering Company.",
+  "contact_us": "Contact Us",
+  "forecast_twoweeks": "2 weeks Forecast"
 }

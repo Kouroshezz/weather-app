@@ -4,19 +4,31 @@ import { CityContext } from "../context/cityContext";
 import { useContext, useEffect, useState } from "react";
 import dayjs from 'dayjs';
 import 'dayjs/locale/fa';
+
 import { LangContext } from "../context/languageContext";
 import { fetchIcon, getCurrentWeather } from "../utills/fetchFunc";
+import type { WeatherType } from "../utills/types";
+import i18next from "i18next";
 
 function CurrentWeather() {
 
   const { selectedCity } = useContext(CityContext);
   const { lang } = useContext(LangContext);
+  const language = i18next.language;
 
-  const [weather, setWeather] = useState(null)
+  const [weather, setWeather] = useState<WeatherType>();
 
+  const d = new Date()
   const weekday = dayjs().locale(`${lang}`).format("dddd");
-  const date = dayjs().locale(`${lang}`).format("D MMM YYYY");
-  const time = dayjs().locale(`${lang}`).format("HH:mm");
+  const rtlDay = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+    weekday: "long"
+  }).format(d);
+  const rtlDate = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(d);
+
 
   const iconUrl = weather ? `${fetchIcon(weather?.WeatherIcon)}` : '';
 
@@ -24,7 +36,7 @@ function CurrentWeather() {
     const fetchWeather = async () => {
 
       try {
-        const data = await getCurrentWeather(selectedCity!.key);
+        const data = await getCurrentWeather(selectedCity!.key, language);
         setWeather(data[0]);
       } catch (error) {
         console.error("Failed to fetch weather data:", error);
@@ -34,8 +46,7 @@ function CurrentWeather() {
     if (selectedCity?.key) {
       fetchWeather();
     }
-    console.log(selectedCity)
-  }, [selectedCity?.key]);
+  }, [selectedCity?.key, language]);
 
 
   return (
@@ -52,33 +63,38 @@ function CurrentWeather() {
               <Box component={'div'} sx={(theme) => ({
                 background: theme.palette.app.weatherBox,
                 borderRadius: '50px', padding: '10px 13px', display: 'inline-flex',
-                alignItems: 'center'
+                alignItems: 'center', color: theme.palette.app.text
               }
               )}>
                 <LocationOnIcon /> {selectedCity?.cityName}
               </Box>
-              <Typography component={'h4'} variant="h4" sx={{ marginTop: '16px' }}>
-                {weekday}
+              <Typography component={'h4'} variant="h4" sx={(theme) => ({ marginTop: '16px', color: theme.palette.app.text })}>
+                {language === 'en' ? weekday : rtlDay}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography variant="body2" component={'span'} sx={{ marginInlineEnd: '8px' }}>
-                  {date}
+                <Typography variant="body2" component={'span'} sx={(theme) => ({ marginInlineEnd: '8px', color: theme.palette.app.text })}>
+                  {language == 'en' ? dayjs(weather?.LocalObservationDateTime).format('DD MMM YYYY')
+                    : rtlDate}
                 </Typography>
-                <Typography variant="body2" component={'span'}>
-                  {time}
+                <Typography variant="body2" component={'span'} sx={(theme) => ({ color: theme.palette.app.text })}>
+                  {dayjs(weather?.LocalObservationDateTime).format('HH:mm')}
                 </Typography>
               </Box>
-              <Typography variant="h4" component={'span'} sx={{ marginTop: '16px', fontWeight: 500 }}>
-                {Math.floor(weather?.Temperature?.Metric.Value)}°
+              <Typography variant="h4" component={'span'} sx={(theme) => ({
+                color: theme.palette.app.text, marginTop: '16px',
+                fontWeight: 500
+              })}>
+                {Math.floor(weather?.Temperature.Metric.Value)}°
+                {weather?.Temperature?.Metric.Unit}
               </Typography>
             </Box>
             {/* --- */}
             <Box component={'div'}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Box component={'img'} src={iconUrl} width={'100px'}
+              <Box component={'img'} src={weather?.WeatherIcon ? iconUrl : ''} width={'100px'}
                 alt={`${weather?.WeatherText} icon`}>
               </Box>
-              <Typography variant="h5" component={'span'}>
+              <Typography variant="h5" component={'span'} sx={(theme) => ({ color: theme.palette.app.text })} >
                 {weather?.WeatherText}
               </Typography>
             </Box>

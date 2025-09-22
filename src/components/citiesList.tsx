@@ -6,6 +6,7 @@ import { getCities } from "../utills/fetchFunc";
 import type { FetchCities } from "../utills/types";
 import { CityContext } from "../context/cityContext";
 import { useTranslation } from "react-i18next";
+import { ThemeContext } from "../context";
 
 
 
@@ -18,19 +19,7 @@ function CitiesList() {
   const { t } = useTranslation()
 
   const { setSelectedCity } = useContext(CityContext);
-
-  // useEffect(() => {
-  //   const fetchCities = async () => {
-  //     if (!value) return;
-  //     try {
-  //       const { data } = await getCities(value);
-  //       setCityList(data);
-  //     } catch (err) {
-  //       console.error("Error fetching cities:", err);
-  //     }
-  //   };
-  //   fetchCities();
-  // }, [value]);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -53,18 +42,26 @@ function CitiesList() {
     fetchCities();
   }, [value]);
 
+  function zebraRow(index: number) {
+    if (theme === 'light') {
+      return index % 2 ? "#ffffff" : "#E1E9EE"
+    }
+    else (theme === 'dark')
+    return index % 2 ? "#292F45" : "#292F4520"
+  }
+
   // console.log(text.slice(0, text.indexOf(',')).trim())
 
   return (
     <Autocomplete
       loading={isLoading}
-      loadingText="Loading cities..."
+      loadingText={t('load_cities')}
       disablePortal
       options={cityList}
       getOptionLabel={(option: FetchCities) =>
         ` ${option.LocalizedName}, ${option.Country.LocalizedName}`
       }
-      sx={{ width: 300 }}
+      sx={{ width: { xs: '70%', md: '300px' } }}
       onInputChange={(_, newValue) => setText(newValue)}
       onChange={(_, newValue) => setSelectedCity(newValue ? {
         cityName: `${newValue.LocalizedName}, ${newValue.Country.LocalizedName}`,
@@ -73,14 +70,10 @@ function CitiesList() {
       renderInput={(params) =>
         <TextField value={text} {...params} label={t("cityname")} placeholder="enter your city" />}
       renderOption={(props, option, { index }) => (
-        <li
-          {...props}
-          key={option.Key}
-          style={{
-            backgroundColor: index % 2 === 0 ? "#ffffff" : "#E1E9EE",
-            padding: "6px 12px",
-          }}
-        >
+        <li {...props} key={option.Key} style={{
+          backgroundColor: zebraRow(index),
+          padding: "6px 12px",
+        }}>
           <LocationOnOutlinedIcon /> {option.LocalizedName}, {option.Country.LocalizedName}
         </li>
       )}

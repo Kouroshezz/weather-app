@@ -6,6 +6,7 @@ export type ChangeThemeType = {
   theme: 'light' | 'dark';
   username: string;
   setUsername: (name: string) => void;
+  logout: () => void
 };
 
 const darkTheme = createTheme({
@@ -54,11 +55,12 @@ export const ThemeContext = createContext<ChangeThemeType>({
   changeTheme: () => { },
   username: '',
   setUsername: () => { },
+  logout: () => { },
 });
 
 export function ThemeContextProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [username, setUsername] = useState<string>('');
+  const [theme, setTheme] = useState<'light' | 'dark'>(localStorage.getItem('appTheme') as 'light' | 'dark');
+  const [username, setUsername] = useState<string | null>(localStorage.getItem('username') as string);
 
 
   // --- check theme and username on load ---
@@ -71,24 +73,31 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
     if (savedUsername) {
       setUsername(savedUsername);
     }
-  }, [username, theme]);
+  }, []);
 
 
   useEffect(() => {
-    localStorage.setItem('username', username);
+    username && localStorage.setItem('username', username);
   }, [username]);
 
-  const changeTheme = (theme: 'light' | 'dark') => {
+  useEffect(() => {
     localStorage.setItem('appTheme', theme);
-    setTheme(theme)
+  }, [theme]);
 
+  const changeTheme = (theme: 'light' | 'dark') => {
+    setTheme(theme)
   };
 
+  const logout = () => {
+    setUsername('');
+    localStorage.removeItem('username');
+  }
+
   return (
-    <ThemeContext value={{ theme, changeTheme, username, setUsername }}>
+    <ThemeContext.Provider value={{ theme, changeTheme, username, setUsername, logout }}>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {children}
       </ThemeProvider>
-    </ThemeContext>
+    </ThemeContext.Provider>
   );
 }

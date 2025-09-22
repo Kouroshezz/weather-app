@@ -1,6 +1,6 @@
-:root {
-  /* font-size: 10px; */
-  font-family: 'roboto';
+@font-face {
+  font-family: 'iranYekan';
+  src: url('./assets/iranyekanwebregularfanum.woff') format('woff')
 }
 
 * {
@@ -8,6 +8,27 @@
   margin: 0;
   padding: 0;
 }
+
+body[dir='ltr'],
+body[dir='ltr'] * {
+  font-family: 'roboto';
+}
+
+body[dir='rtl'],
+body[dir='rtl'] * {
+  font-family: 'iranYekan' !important;
+}
+
+/*body[dir='rtl'] fieldset {
+  text-align: right;
+}
+
+ body[dir='rtl'] label.MuiFormLabel-root {
+  right: 0px;
+  left: auto;
+} */
+
+
 
 .img-responsive {
   max-width: 100%;

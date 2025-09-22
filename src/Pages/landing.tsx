@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import ChangeLang from '../components/changeLang';
 
 
 const images = [
@@ -29,7 +30,7 @@ function LandingPage() {
   }
 
   useEffect(() => {
-    username !== '' && navigate('/dashboard')
+    username && username !== '' && navigate('/dashboard')
   }, [username])
 
 
@@ -53,11 +54,12 @@ function LandingPage() {
               backgroundColor: theme.palette.background.paper,
             })}>
             <form style={{ padding: '50px' }}>
-              <Typography variant="h5" component="h4" sx={{
+              <Typography variant="h5" component="h4" sx={(theme) => ({
                 fontWeight: 'bold',
                 textAlign: 'center',
-                mb: 2
-              }}>
+                mb: 2,
+                color: theme.palette.app.text
+              })}>
                 {t('login')}
               </Typography>
               <TextField id="outlined-basic" label={t('enter_name')} variant="outlined"
@@ -87,6 +89,7 @@ function LandingPage() {
             </Box>
           </Grid>
         </Grid >
+        <ChangeLang />
       </Box >
     </>
   )

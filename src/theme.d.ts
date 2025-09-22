@@ -1,11 +1,11 @@
-import "@mui/material/styles";
+import '@mui/material/styles';
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Palette {
     app: {
       weatherBox: string;
       box: string;
-      text: string
+      text: string;
     };
   }
   interface PaletteOptions {

@@ -2,7 +2,26 @@
   "login": "ورود",
   "enter_name": "نام خود را وارد کنید",
   "logout": "خروج",
-  "langugage": "زبان",
+  "language": "زبان",
   "past24": "هوای 24 ساعت گذشته",
-  "cityname": "نام شهر"
+  "average": "میانگین دمای ماهانه",
+  "cityname": "نام شهر",
+  "exit": "خروج",
+  "dashboard": "داشبورد هواشناسی",
+  "mode": "حالت",
+  "light": "روشن",
+  "dark": "تاریک",
+  "load_cities": "در حال باگزاری شهرها",
+  "week": {
+    "Saturday": "شنبه",
+    "Sunday": "یکشنبه",
+    "Monday": "دوشنبه",
+    "Tuesday": "سه شنبه",
+    "Wednesday": "چهارشنبه",
+    "Thursday": "پنج شنبه",
+    "Friday": "جمعه"
+  },
+  "copy_right": "همه حقوق این سایت برای شرکت مهندسی نادین صدر آریا محفوظ است.",
+  "contact_us": "تماس با ما",
+  "forecast_twoweeks": "پیش بینی 2 هفته"
 }
