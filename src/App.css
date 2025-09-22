@@ -12,3 +12,8 @@
 a {
   text-decoration: none;
 }
+
+.dashboard-header {
+  position: relative;
+  z-index: 1;
+}

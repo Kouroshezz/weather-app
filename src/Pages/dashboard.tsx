@@ -44,12 +44,11 @@ function Dashboard() {
 
   return (
     <>
-      {username === '' && <div>Please login</div>}
       <Box className='dashboard-header'
         sx={(them) => ({
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '1.2rem 2.4rem', backgroundColor: them.palette.background.paper,
-          flexWrap: { xs: 'wrap', md: 'nowrap' }
+          padding: '1.2rem 2.4rem', backgroundColor: them.palette.background.default,
+          flexWrap: { xs: 'wrap', md: 'nowrap' }, boxShadow: '0px 4px 10px 0px #00000026'
         })}>
         <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
           <img src={Logo} />
@@ -69,7 +68,7 @@ function Dashboard() {
             onBlur={hideMenu}>
             <SettingsIcon sx={{
               padding: '11px', color: '#BBC1C4', borderRadius: '8px',
-              border: '1px solid #BBC1C4', fontSize: '50px',
+              border: '1px solid #BBC1C4', fontSize: '55px',
             }} />
             <ContextMenu ref={menuRef} />
           </Box>

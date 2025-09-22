@@ -130,8 +130,8 @@ const TemperatureChart = () => {
       </Typography>
       <div style={{
         width: '100%',
-        height: '200px',
-        padding: '0 20px 20px 20px',
+        height: '150px',
+        // padding: '0 20px 20px 20px',
         backgroundColor: 'transparent',
         borderRadius: '15px'
       }}>

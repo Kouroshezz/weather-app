@@ -82,7 +82,6 @@ function WeatherForecast() {
       </Typography>
       <Slider {...settings}>
         {weather && weather.map((item: ForecastType, index: number) => {
-          console.log(item)
           return (
             <SingleForecast key={index} {...item} />
           )

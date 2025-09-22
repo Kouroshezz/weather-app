@@ -50,7 +50,6 @@ function CitiesList() {
     return index % 2 ? "#292F45" : "#292F4520"
   }
 
-  // console.log(text.slice(0, text.indexOf(',')).trim())
 
   return (
     <Autocomplete
