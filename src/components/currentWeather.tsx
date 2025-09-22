@@ -84,7 +84,7 @@ function CurrentWeather() {
                 color: theme.palette.app.text, marginTop: '16px',
                 fontWeight: 500
               })}>
-                {Math.floor(weather?.Temperature?.Metric?.Value)}°
+                {Math.floor(weather?.Temperature?.Metric?.Value ?? 0)}°
                 {weather?.Temperature?.Metric.Unit}
               </Typography>
             </Box>

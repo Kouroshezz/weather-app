@@ -119,10 +119,10 @@ function ContextMenu({ ref }: ContextMenuProps) {
       {/* ------ */}
       <Divider sx={{ margin: '12px 0', backgroundColor: '#AFBCC4' }} />
       <Box component={'div'} onClick={logout}
-        sx={(theme) => ({
+        sx={{
           display: 'flex', alignItems: 'center', cursor: 'pointer',
           padding: '10px 0'
-        })}>
+        }}>
         <LogoutOutlinedIcon
           sx={{ direction: lang === 'en' ? 'ltr' : 'rtl' }} /> {t('exit')}
       </Box>

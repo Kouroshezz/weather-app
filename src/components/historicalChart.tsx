@@ -80,10 +80,10 @@ const TemperatureChart = () => {
       title: {
         display: true,
         text: ``,
-        align: 'start',
+        align: 'start' as const,
         font: {
           size: 20,
-          weight: 'bold',
+          weight: 'bold' as const,
         },
         // Use theme color for the title
         color: theme.palette.text.primary,
@@ -107,7 +107,7 @@ const TemperatureChart = () => {
         max: 40,
         ticks: {
           stepSize: 10,
-          callback: (value) => value + '°C',
+          callback: (value: any) => value + '°C',
           // Use theme color for y-axis labels
           color: theme.palette.text.secondary,
         },
