@@ -40,7 +40,7 @@ function Footer() {
       </Box>
       {/* --- */}
       <Box sx={{
-        display: 'inline-flex', gap: '20px', alignItems: 'center', marginTop: { xs: '5px', md: 0 },
+        display: 'inline-flex', gap: '20px', alignItems: 'normal', marginTop: { xs: '5px', md: 0 },
         flexDirection: { xs: 'column', md: 'row' }
       }}>
         <Box component={'div'} sx={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
@@ -53,7 +53,6 @@ function Footer() {
           <CalendarMonthOutlinedIcon sx={(theme) => ({ color: theme.palette.app.text })} />
           <Typography sx={(theme) => ({ color: theme.palette.app.text, fontSize: '14px' })}>
             {language === 'en' ? dayjs().format('HH:MM DD/MMM/YYYY') : dateJalali.format(new Date())}
-
           </Typography>
         </Box>
       </Box>

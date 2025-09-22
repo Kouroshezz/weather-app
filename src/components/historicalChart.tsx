@@ -39,7 +39,7 @@ const TemperatureChart = () => {
         fill: true,
         label: 'Temperature',
         data: dataValues,
-        borderColor: (context) => {
+        borderColor: (context: any) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
@@ -52,7 +52,7 @@ const TemperatureChart = () => {
           gradient.addColorStop(1, '#7947F7');
           return gradient;
         },
-        backgroundColor: (context) => {
+        backgroundColor: (context: any) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
           if (!chartArea) {
