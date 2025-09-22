@@ -52,7 +52,7 @@ function Footer() {
         <Box component={'div'} sx={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
           <CalendarMonthOutlinedIcon sx={(theme) => ({ color: theme.palette.app.text })} />
           <Typography sx={(theme) => ({ color: theme.palette.app.text, fontSize: '14px' })}>
-            {language === 'en' ? dayjs().format('HH:MM DD/MMM/YYYY') : dateJalali.format(new Date())}
+            {language.startsWith('en') ? dayjs().format('HH:MM DD/MMM/YYYY') : dateJalali.format(new Date())}
           </Typography>
         </Box>
       </Box>

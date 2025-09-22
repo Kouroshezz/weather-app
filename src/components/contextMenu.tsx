@@ -24,13 +24,16 @@ function ContextMenu({ ref }: ContextMenuProps) {
     document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
     i18n.changeLanguage(lang);
+
   }, [lang]);
 
   return (
     <Paper elevation={8} sx={{
       borderRadius: '8px', display: 'none',
       flexDirection: 'column', padding: '8px 16px', position: 'absolute',
-      right: lang === 'en' ? '50%' : 'auto', top: '110%', left: lang === 'en' ? 'auto' : '50%'
+      right: lang === 'en-US' || lang === 'en' ? '50%' : 'auto',
+      top: '110%',
+      left: lang.startsWith('en') ? 'auto' : '50%'
     }} ref={ref}>
       <Typography component={'p'} sx={{ marginBottom: '10px' }}>
         {t('mode')}
