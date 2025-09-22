@@ -37,7 +37,7 @@ function SingleForecast(weather: ForecastType) {
     })}>
       <Box>
         <Typography sx={(theme) => ({ color: theme.palette.app.text })}>
-          {language === 'en' ? dayjs(weather?.Date).format('ddd')
+          {language.startsWith('en') ? dayjs(weather?.Date).format('ddd')
             : t(`week.${dayjs(weather?.Date).format('dddd')}`)}
         </Typography>
         <Divider sx={{

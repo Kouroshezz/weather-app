@@ -18,6 +18,7 @@ function CurrentWeather() {
 
   const [weather, setWeather] = useState<WeatherType>();
 
+
   const d = new Date()
   const weekday = dayjs().locale(`${lang}`).format("dddd");
   const rtlDay = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
@@ -69,11 +70,11 @@ function CurrentWeather() {
                 <LocationOnIcon /> {selectedCity?.cityName}
               </Box>
               <Typography component={'h4'} variant="h4" sx={(theme) => ({ marginTop: '16px', color: theme.palette.app.text })}>
-                {language === 'en' ? weekday : rtlDay}
+                {language.startsWith('en') ? weekday : rtlDay}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="body2" component={'span'} sx={(theme) => ({ marginInlineEnd: '8px', color: theme.palette.app.text })}>
-                  {language == 'en' ? dayjs(weather?.LocalObservationDateTime).format('DD MMM YYYY')
+                  {language.startsWith('en') ? dayjs(weather?.LocalObservationDateTime).format('DD MMM YYYY')
                     : rtlDate}
                 </Typography>
                 <Typography variant="body2" component={'span'} sx={(theme) => ({ color: theme.palette.app.text })}>
