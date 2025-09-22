@@ -4,7 +4,7 @@ import { createContext, useState, useEffect, type ReactNode } from 'react';
 export type ChangeThemeType = {
   changeTheme: (theme: 'light' | 'dark') => void;
   theme: 'light' | 'dark';
-  username: string;
+  username: string | null;
   setUsername: (name: string) => void;
   logout: () => void
 };
@@ -53,31 +53,24 @@ const lightTheme = createTheme({
 export const ThemeContext = createContext<ChangeThemeType>({
   theme: 'light',
   changeTheme: () => { },
-  username: '',
+  username: null,
   setUsername: () => { },
   logout: () => { },
 });
 
 export function ThemeContextProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>(localStorage.getItem('appTheme') as 'light' | 'dark');
-  const [username, setUsername] = useState<string | null>(localStorage.getItem('username') as string);
-
-
-  // --- check theme and username on load ---
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('appTheme') as 'light' | 'dark' | null;
-    const savedUsername = localStorage.getItem('username') as string | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-  }, []);
-
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const savedTheme = localStorage.getItem('appTheme');
+    return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
+  });
+  const [username, setUsername] = useState<string | null>(() => localStorage.getItem('username'));
 
   useEffect(() => {
-    username && localStorage.setItem('username', username);
+    if (username) {
+      localStorage.setItem('username', username);
+    } else {
+      localStorage.removeItem('username');
+    }
   }, [username]);
 
   useEffect(() => {
@@ -89,8 +82,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
-    setUsername('');
-    localStorage.removeItem('username');
+    setUsername(null);
   }
 
   return (

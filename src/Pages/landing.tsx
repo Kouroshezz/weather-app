@@ -9,12 +9,6 @@ import { useTranslation } from 'react-i18next';
 import ChangeLang from '../components/changeLang';
 
 
-const images = [
-  { title: 'Sunny', src: sunny, alt: 'partly sunny partly rainy 3d icon' },
-  { title: 'Windy', src: windy, alt: 'partly windy-cloudy 3d icon' },
-  { title: 'Rainy', src: rainy, alt: 'partly rainy 3d icon' },
-]
-
 function LandingPage() {
 
   const { t } = useTranslation();
@@ -42,18 +36,19 @@ function LandingPage() {
         height: '100vh', flexDirection: 'column', gap: 5,
         backgroundColor: theme.palette.background.default,
       })}>
-        <Grid container justifyContent='center' alignItems='center' elevation={4}
+        <Grid container={true} justifyContent='center' alignItems='center'
           sx={{
             boxShadow: 3, borderRadius: '12px',
             width: { xs: '90vw', md: '70%' }, overflow: 'hidden',
             backgroundColor: theme === 'light' ? '#D3E1E7' : '#404961',
           }}
         >
-          <Grid item size={{ xs: 12, md: 7 }}
+          <Grid size={{ xs: 12, md: 7 }} component={'div'}
+            height={'100%'}
             sx={(theme) => ({
               backgroundColor: theme.palette.background.paper,
             })}>
-            <form style={{ padding: '50px' }}>
+            <form style={{ padding: '50px', height: '100%' }}>
               <Typography variant="h5" component="h4" sx={(theme) => ({
                 fontWeight: 'bold',
                 textAlign: 'center',
@@ -71,7 +66,7 @@ function LandingPage() {
               </Button>
             </form>
           </Grid>
-          <Grid item size={{ xs: 12, md: 5 }} className='login-img'>
+          <Grid size={{ xs: 12, md: 5 }} className='login-img'>
             <Box component={'div'} sx={{
               display: 'grid', alignItems: 'center', justifyContent: 'center',
               gridTemplateColumns: 'repeat(2, 1fr)', gridTemplateRows: 'repeat(2, 1fr)',

@@ -7,7 +7,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CitiesList from '../components/citiesList';
 import CurrentWeather from '../components/currentWeather';
 import ContextMenu from '../components/contextMenu';
-import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import TemperatureChart from '../components/historicalChart';
 import { CityContext } from '../context/cityContext';
@@ -30,7 +29,7 @@ function Dashboard() {
     if (menuRef?.current) menuRef.current.style.display = 'inline-flex';
   };
 
-  const hideMenu = (e: FocusEvent) => {
+  const hideMenu = (e: React.FocusEvent<HTMLDivElement>) => {
     if (menuRef.current && settingRef.current &&
       !settingRef.current.contains(e.relatedTarget as Node) &&
       !menuRef.current.contains(e.relatedTarget as Node)) {
@@ -63,9 +62,10 @@ function Dashboard() {
           width: { xs: '100%', md: 'auto' }, marginTop: { xs: '20px', md: 0 }
         }}>
           <CitiesList />
-          <Box sx={{ position: 'relative' }} ref={settingRef} tabIndex={0}
+          <Box component={'div'} sx={{ position: 'relative' }} ref={settingRef} tabIndex={0}
             onFocus={showMenu}
-            onBlur={hideMenu}>
+            onBlur={hideMenu}
+          >
             <SettingsIcon sx={{
               padding: '11px', color: '#BBC1C4', borderRadius: '8px',
               border: '1px solid #BBC1C4', fontSize: '55px',
@@ -79,7 +79,7 @@ function Dashboard() {
         padding: '20px'
       })}>
         <Grid container spacing={{ xs: '5px', md: '40px' }} sx={{}}>
-          <Grid item size={{ xs: 12, md: 5 }} sx={(theme) => ({
+          <Grid size={{ xs: 12, md: 5 }} sx={(theme) => ({
             boxShadow: '0px 4px 10px 0px #00000026;',
             backgroundColor: theme.palette.app.box,
             borderRadius: '24px', padding: '20px',
@@ -87,7 +87,7 @@ function Dashboard() {
           })}>
             <CurrentWeather />
           </Grid>
-          <Grid item size={{ xs: 12, md: 7 }}
+          <Grid size={{ xs: 12, md: 7 }}
             sx={(theme) => ({
               boxShadow: '0px 4px 10px 0px #00000026;',
               backgroundColor: theme.palette.app.box,
