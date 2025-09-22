@@ -44,9 +44,9 @@ function LandingPage() {
           }}
         >
           <Grid size={{ xs: 12, md: 7 }} component={'div'}
-            height={'100%'}
             sx={(theme) => ({
               backgroundColor: theme.palette.background.paper,
+
             })}>
             <form style={{ padding: '50px', height: '100%' }}>
               <Typography variant="h5" component="h4" sx={(theme) => ({
@@ -68,7 +68,7 @@ function LandingPage() {
           </Grid>
           <Grid size={{ xs: 12, md: 5 }} className='login-img'>
             <Box component={'div'} sx={{
-              display: 'grid', alignItems: 'center', justifyContent: 'center',
+              display: { xs: 'none', md: 'grid' }, alignItems: 'center', justifyContent: 'center',
               gridTemplateColumns: 'repeat(2, 1fr)', gridTemplateRows: 'repeat(2, 1fr)',
               gap: 1, padding: 2, mt: 3
             }}>
