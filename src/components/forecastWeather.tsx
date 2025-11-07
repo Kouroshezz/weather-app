@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CityContext } from "../context/cityContext";
 import { getWeatherForecast } from "../utills/fetchFunc";
 import type { SingleWeatherCard, WeatherForecastType } from "../utills/types";
