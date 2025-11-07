@@ -21,7 +21,20 @@
     "Thursday": "پنج شنبه",
     "Friday": "جمعه"
   },
-  "copy_right": "همه حقوق این سایت برای شرکت مهندسی نادین صدر آریا محفوظ است.",
+  "condition": {
+    "Sunny": "آفتابی",
+    "Partly cloudy": "نیمه‌ابری",
+    "Cloudy": "ابری",
+    "Overcast": "پوشیده از ابر",
+    "Mist": "مه",
+    "Blowing snow": "برف همراه با باد",
+    "Blizzard": "بوران",
+    "Fog": "مه غلیظ",
+    "Light rain": "باران ملایم",
+    "Heavy rain": "باران شدید",
+    "Heavy snow": "برف سنگین"
+  },
+  "copy_right": "همه حقوق این سایت محفوظ است.",
   "contact_us": "تماس با ما",
   "forecast_twoweeks": "پیش بینی 2 هفته"
 }

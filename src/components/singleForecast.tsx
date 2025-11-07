@@ -1,33 +1,14 @@
 import { Box, Divider, Typography } from "@mui/material"
-import type { ForecastType } from "../utills/types"
+import type { SingleWeatherCard } from "../utills/types"
 import dayjs from "dayjs"
-import { useEffect, useState } from "react";
-import { fetchIcon } from "../utills/fetchFunc";
 import { useTranslation } from "react-i18next";
 
 
-function SingleForecast(weather: ForecastType) {
+function SingleForecast(weather: SingleWeatherCard) {
 
 
   const { t, i18n } = useTranslation();
   const language = i18n.language;
-
-  let averageTemp = (Math.floor(weather?.Temperature?.Minimum.Value) + Math.floor(weather?.Temperature.Maximum.Value)) / 2;
-  const [iconUrl, setIconUrl] = useState<string>('');
-
-  useEffect(() => {
-    async function loadIcon() {
-      if (weather?.Day.Icon != null) {
-        const url = await fetchIcon(weather.Day.Icon);
-        setIconUrl(url);
-      } else {
-        setIconUrl('');
-      }
-    }
-    loadIcon();
-  }, [])
-
-
 
   return (
     <Box component={'div'} sx={(theme) => ({
@@ -37,8 +18,8 @@ function SingleForecast(weather: ForecastType) {
     })}>
       <Box>
         <Typography sx={(theme) => ({ color: theme.palette.app.text })}>
-          {language.startsWith('en') ? dayjs(weather?.Date).format('ddd')
-            : t(`week.${dayjs(weather?.Date).format('dddd')}`)}
+          {language.startsWith('en') ? dayjs(weather?.date).format('ddd')
+            : t(`week.${dayjs(weather?.date).format('dddd')}`)}
         </Typography>
         <Divider sx={{
           border: 0,
@@ -48,12 +29,13 @@ function SingleForecast(weather: ForecastType) {
           borderImageSlice: 1,
         }} />
       </Box>
-      <Box component={'img'} src={iconUrl} alt={`${weather?.Day.IconPhrase} icon`}
+      <Box component={'img'} src={`https:${weather?.day?.condition?.icon}`}
+        alt={`${weather?.day?.condition?.text} icon`}
         maxWidth={'70px'}></Box>
       <Typography component={'span'} sx={(theme) => ({
         fontWeight: 500, fontSize: '18px', color: theme.palette.app.text
       })}>
-        {Math.floor(averageTemp)}°{weather?.Temperature?.Minimum?.Unit}
+        {Math.floor(weather?.day?.avgtemp_c)}&#8451;
       </Typography>
     </Box>
   )

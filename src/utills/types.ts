@@ -1,53 +1,54 @@
 export type FetchCities = {
-  AdministrativeArea: {
-    ID: string
-    LocalizedName: string
-  },
-  Country: {
-    ID: string
-    LocalizedName: string
-  },
-  Key: string
-  LocalizedName: string,
-  Rank: number,
-  Type: string,
-  Version: number,
+  id: number;
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+  url: string;
 }
 
 // ----------- weather type
-export type WeatherType = {
-  EpochTime?: number,
-  LocalObservationDateTime: string,
-  WeatherIcon: number,
-  WeatherText: string,
-  Temperature: {
-    Imperial?: object,
-    Metric: {
-      Unit: string,
-      Value: number
+export type currentWeatherType = {
+  location: {
+    name: string,
+    region?: string,
+    country?: string,
+    lat?: number,
+    lon?: number,
+    tz_id?: string,
+    localtime_epoch?: number,
+    localtime: string
+  },
+  current: {
+    temp_c: number,
+    condition: {
+      text: string,
+      icon: string,
+      code?: number
     },
+    cloud?: number,
+    feelslike_c?: number
   }
 }
 
 // ---- forecast single type
-export type ForecastType = {
-  Date: string,
-  Day: {
-    Icon: number,
-    IconPhrase: string,
-  },
-  Night?: {
-    Icon: number,
-    IconPhrase: string,
-  },
-  Temperature: {
-    Maximum: {
-      Unit: string,
-      Value: number
-    },
-    Minimum: {
-      Unit: string,
-      Value: number
-    }
-  }
-}
+export type WeatherForecastType = {
+  current: {
+    temp_c: number;
+    condition: { text: string; icon: string };
+  };
+  forecast: {
+    forecastday: SingleWeatherCard[];
+  };
+};
+
+export type SingleWeatherCard = {
+  date: string;
+  day: {
+    maxtemp_c: number;
+    mintemp_c: number;
+    avgtemp_c: number;
+    condition: { text: string; icon: string };
+  };
+};

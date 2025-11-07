@@ -1,21 +1,21 @@
 import axios from "axios";
-
+import type { currentWeatherType } from "./types";
 
 const apiInstance = axios.create({
-  baseURL: 'https://dataservice.accuweather.com',
+  baseURL: 'http://api.weatherapi.com/v1',
   timeout: 3000,
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_ACCU_WEATHER_KEY}`,
-    "Content-Type": "application/json",
+  params: {
+    key: import.meta.env.VITE_WEATHER_API
   }
 });
 
 
-export const getCurrentWeather = async (city: string | number | undefined, lang: string = 'en-us') => {
+export const getCurrentWeather = async (city: string): Promise<currentWeatherType> => {
   try {
-    const response = await apiInstance.get(`/currentconditions/v1/${city}`, {
+    const response = await apiInstance.get(`/current.json`, {
       params: {
-        language: lang,
+        language: 'en',
+        q: city
       },
     });
     return response.data;
@@ -25,14 +25,16 @@ export const getCurrentWeather = async (city: string | number | undefined, lang:
   }
 };
 
+//--- fetch 14 days weather
 
-// ---- next 5 day weather forecast 
-export const weatherForecast = async (city: string | number | undefined, lang: string = 'en-us') => {
+export const getWeatherForecast = async (city: string) => {
   try {
-    const response = await apiInstance.get(`/forecasts/v1/daily/5day/${city}`, {
+    const response = await apiInstance.get(`/forecast.json`, {
       params: {
-        language: lang,
-        metric: true
+        q: city,
+        days: 14,
+        aqi: 'no',
+        alerts: 'no'
       },
     });
     return response.data;
@@ -42,25 +44,11 @@ export const weatherForecast = async (city: string | number | undefined, lang: s
   }
 };
 
-
-// --- historical chart for past 24 hours - API is limited to past 24 hours not monthly as UI
-
-// export const getHistorical = async (cityCode: number | undefined) => {
-//   try {
-//     const response = await apiInstance.get(`/currentconditions/v1/${cityCode}/historical/24`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('fetch error:', error);
-//     throw error;
-//   }
-// }
-
-
-// --- fetch function for auto complete cities name
+// --- fetch function for autocomplete cities name
 
 export const getCities = async (query: string) => {
   try {
-    const response = await apiInstance.get("/locations/v1/autocomplete", {
+    const response = await apiInstance.get("/search.json", {
       params: { q: query },
     });
     return response;
@@ -68,12 +56,4 @@ export const getCities = async (query: string) => {
     console.error('error:', error);
     throw error;
   }
-}
-
-// ------- fetch Icons
-export function fetchIcon(iconCode: number | undefined) {
-  if (iconCode === undefined || iconCode === null) {
-    return '';
-  }
-  return `https://www.accuweather.com/assets/images/weather-icons/v2a/${iconCode}.svg`
 }

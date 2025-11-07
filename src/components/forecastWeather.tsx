@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { CityContext } from "../context/cityContext";
-import { weatherForecast } from "../utills/fetchFunc";
-import type { ForecastType } from "../utills/types";
-import i18next from "i18next";
+import { getWeatherForecast } from "../utills/fetchFunc";
+import type { SingleWeatherCard, WeatherForecastType } from "../utills/types";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,86 +9,66 @@ import SingleForecast from "./singleForecast";
 import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-var settings = {
-  infinite: true,
-  dot: false,
-  arrows: false,
-  autoplay: true,
-  autoplaySpeed: 5000,
-  speed: 500,
-  slidesToShow: 10,
-  slidesToScroll: 2,
-  swipeToSlide: true,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 10,
-        slidesToScroll: 3,
-        infinite: true,
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 2,
-        initialSlide: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 2
-      }
-    }
-  ]
-};
-
 function WeatherForecast() {
-
   const { selectedCity } = useContext(CityContext);
-  const [weather, setWeather] = useState<ForecastType[]>();
-  const language = i18next.language;
-  const { t } = useTranslation()
+  const [days, setDays] = useState<SingleWeatherCard[] | null>(null);
+  const { t, i18n } = useTranslation();
+
+  const settings = {
+    infinite: false,
+    dots: false,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 500,
+    slidesToShow: 10,
+    rtl: !i18n.language.startsWith("en"),
+    slidesToScroll: 2,
+    swipeToSlide: true,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 10, slidesToScroll: 3, infinite: true } },
+      { breakpoint: 600, settings: { slidesToShow: 4, slidesToScroll: 2, initialSlide: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 3, slidesToScroll: 2 } },
+    ]
+  }
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const data = await weatherForecast(selectedCity!.key, language);
-        const duplicateArr = [...data.DailyForecasts, ...data.DailyForecasts];
-        setWeather(duplicateArr);
-      } catch (error) {
-        console.error("Failed to fetch weather data:", error);
-      }
-    };
-
-    if (selectedCity?.key) {
-      fetchWeather();
+    const cityName = selectedCity?.cityName;
+    if (!cityName) {
+      setDays(null);
+      return;
     }
 
-  }, [selectedCity?.key]);
-
+    (async () => {
+      try {
+        const data: WeatherForecastType = await getWeatherForecast(cityName);
+        setDays(data.forecast.forecastday); // <-- array of SingleWeatherCard
+      } catch (err) {
+        console.error("Failed to fetch weather data:", err);
+        setDays(null);
+      }
+    })();
+  }, [selectedCity?.cityName]);
 
   return (
     <>
-      <Typography component={'h5'} variant={'h5'} sx={(theme) => ({
-        color: theme.palette.app.text,
-        marginBottom: '30px'
-      })}>
-        {t('forecast_twoweeks')}
+      <Typography
+        component="h5"
+        variant="h5"
+        sx={(theme) => ({ color: theme.palette.app.text, marginBottom: "30px" })}
+      >
+        {t("forecast_twoweeks")}
       </Typography>
-      <Slider {...settings}>
-        {weather && weather.map((item: ForecastType, index: number) => {
-          return (
-            <SingleForecast key={index} {...item} />
-          )
-        }
-        )}
-      </Slider >
+
+      {days && days.length > 0 ? (
+        <Slider {...settings}>
+          {days.map((item) => (
+            <SingleForecast key={item.date} {...item} />
+          ))}
+        </Slider>
+      ) : null}
     </>
-  )
+  );
 }
 
-export default WeatherForecast
+export default WeatherForecast;

@@ -1,8 +1,7 @@
 import { createContext, useState, type ReactNode } from "react";
 
 type City = {
-  cityName: string;
-  key: string;
+  cityName: string
 } | null;
 
 type CityContextType = {

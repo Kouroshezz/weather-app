@@ -21,7 +21,20 @@
     "Thursday": "Thursday",
     "Friday": "Friday"
   },
-  "copy_right": "All rights of this site are reserved for Nadin Sadr Aria Engineering Company.",
+  "condition": {
+    "Sunny": "Sunny",
+    "Partly cloudy": "Partly cloudy",
+    "Cloudy": "Cloudy",
+    "Overcast": "Overcast",
+    "Mist": "Mist",
+    "Blowing snow": "Blowing snow",
+    "Blizzard": "Blizzard",
+    "Fog": "Fog",
+    "Light rain": "Light rain",
+    "Heavy rain": "Heavy rain",
+    "Heavy snow": "Heavy snow"
+  },
+  "copy_right": "All rights of this site are reserved for Company.",
   "contact_us": "Contact Us",
   "forecast_twoweeks": "2 weeks Forecast"
 }

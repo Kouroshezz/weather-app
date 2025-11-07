@@ -45,9 +45,9 @@ function Footer() {
       }}>
         <Box component={'div'} sx={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
           <MailOutlinedIcon sx={(theme) => ({ color: theme.palette.app.text })} />
-          <Typography component={'a'} href={"mailto:info@nadin.ir"}
+          <Typography component={'a'} href={"mailto:info@google.com"}
             sx={(theme) => ({ color: theme.palette.app.text, fontSize: '14px' })}>
-            {t('contact_us')} : info@nadin.ir </Typography>
+            {t('contact_us')} : info@google.com </Typography>
         </Box>
         <Box component={'div'} sx={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
           <CalendarMonthOutlinedIcon sx={(theme) => ({ color: theme.palette.app.text })} />
