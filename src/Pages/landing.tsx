@@ -46,7 +46,7 @@ function LandingPage() {
           <Grid size={{ xs: 12, md: 7 }} component={'div'}
             sx={(theme) => ({
               backgroundColor: theme.palette.background.paper,
-
+              height: '100%'
             })}>
             <form style={{ padding: '50px', height: '100%' }}>
               <Typography variant="h5" component="h4" sx={(theme) => ({

@@ -29,7 +29,7 @@ export type WeatherType = {
   }
 }
 
-// ---- firecast single type
+// ---- forecast single type
 export type ForecastType = {
   Date: string,
   Day: {
