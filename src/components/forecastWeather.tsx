@@ -22,7 +22,7 @@ function WeatherForecast() {
     autoplaySpeed: 5000,
     speed: 500,
     slidesToShow: 10,
-    rtl: !i18n.language.startsWith("en"),
+    // rtl: !i18n.language.startsWith("en"),
     slidesToScroll: 2,
     swipeToSlide: true,
     responsive: [
@@ -65,8 +65,9 @@ function WeatherForecast() {
           {days.map((item) => (
             <SingleForecast key={item.date} {...item} />
           ))}
-        </Slider>
-      ) : null}
+        </Slider >
+      ) : null
+      }
     </>
   );
 }

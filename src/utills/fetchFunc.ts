@@ -2,7 +2,7 @@ import axios from "axios";
 import type { currentWeatherType } from "./types";
 
 const apiInstance = axios.create({
-  baseURL: 'http://api.weatherapi.com/v1',
+  baseURL: 'https://api.weatherapi.com/v1',
   timeout: 3000,
   params: {
     key: import.meta.env.VITE_WEATHER_API
