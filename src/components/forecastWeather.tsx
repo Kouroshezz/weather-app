@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 function WeatherForecast() {
   const { selectedCity } = useContext(CityContext);
   const [days, setDays] = useState<SingleWeatherCard[] | null>(null);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const settings = {
     infinite: false,
