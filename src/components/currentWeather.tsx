@@ -9,10 +9,12 @@ import { LangContext } from "../context/languageContext";
 import { getCurrentWeather } from "../utills/fetchFunc";
 import type { currentWeatherType } from "../utills/types";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 function CurrentWeather() {
   const { selectedCity } = useContext(CityContext);
   const { lang } = useContext(LangContext);
+  const { t } = useTranslation();
   const language = i18next.language;
 
   // start with null so checks are simple
@@ -36,7 +38,6 @@ function CurrentWeather() {
       setWeather(null);
       return;
     }
-
     (async () => {
       try {
         const data = await getCurrentWeather(cityName);
@@ -57,6 +58,8 @@ function CurrentWeather() {
   const tempDisplay = typeof tempC === "number" ? Math.floor(tempC) : undefined;
 
   const isLoading = !selectedCity || !weather;
+
+  console.log(weather?.current?.condition?.text)
 
   return (
     <>
@@ -136,7 +139,7 @@ function CurrentWeather() {
               alt={`${weather?.current?.condition?.text ?? ""} icon`}
             />
             <Typography variant="h5" component={"span"} sx={(theme) => ({ color: theme.palette.app.text })}>
-              {weather?.current?.condition?.text ?? ""}
+              {t(`condition.${weather?.current?.condition?.text}`) ?? ""}
             </Typography>
           </Box>
         </Box>
