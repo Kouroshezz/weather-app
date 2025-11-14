@@ -32,7 +32,7 @@ function SingleForecast(weather: SingleWeatherCard) {
       <Box component={'img'} src={`https:${weather?.day?.condition?.icon}`}
         alt={`${weather?.day?.condition?.text} icon`}
         maxWidth={'70px'}></Box>
-      <Typography component={'span'} sx={(theme) => ({
+      <Typography component={'span'} dir="ltr" sx={(theme) => ({
         fontWeight: 500, fontSize: '18px', color: theme.palette.app.text
       })}>
         {Math.floor(weather?.day?.avgtemp_c)}&#8451;

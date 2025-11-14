@@ -59,8 +59,6 @@ function CurrentWeather() {
 
   const isLoading = !selectedCity || !weather;
 
-  console.log(weather?.current?.condition?.text)
-
   return (
     <>
       {isLoading ? (

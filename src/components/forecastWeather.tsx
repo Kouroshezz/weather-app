@@ -42,7 +42,18 @@ function WeatherForecast() {
     (async () => {
       try {
         const data: WeatherForecastType = await getWeatherForecast(cityName);
-        setDays(data.forecast.forecastday); // <-- array of SingleWeatherCard
+
+        const original = data.forecast.forecastday;
+
+        const repeated = Array(14)
+          .fill(null)
+          .map((_, i) => {
+            const source = original[i % original.length];
+            return { ...source };
+          });
+
+        setDays(repeated);
+
       } catch (err) {
         console.error("Failed to fetch weather data:", err);
         setDays(null);
